@@ -12,10 +12,16 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: ingress-nginx
+    namespace: ""
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: k8s/ingress-nginx/
+    path: k8s/cert-manager/
     repoURL: https://github.com/jaredmcqueen/lab-automation.git
     targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
