@@ -12,7 +12,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: ""
+    namespace: cert-manager
     server: https://kubernetes.default.svc
   project: default
   source:
@@ -22,6 +22,3 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-    syncPolicy:
-      syncOptions:
-        - CreateNamespace=true
