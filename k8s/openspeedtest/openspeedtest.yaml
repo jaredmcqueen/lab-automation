@@ -31,34 +31,27 @@ spec:
       protocol: TCP
   selector:
     app: openspeedtest
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: openspeedtest-https
-#   namespace: openspeedtest
-# spec:
-#   entryPoints:
-#     - websecure
-#   routes:
-#     - match: Host(`speedtest.mcqueensolutions.com`)
-#       kind: Rule
-#       services:
-#         - name: openspeedtest
-#           port: 3000
-#   tls:
-#     certResolver: le-prod
-# ---
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: openspeedtest-http
-#   namespace: openspeedtest
-# spec:
-#   entryPoints:
-#     - web
-#   routes:
-#     - match: Host(`speedtest.mcqueensolutions.com`)
-#       kind: Rule
-#       services:
-#         - name: openspeedtest
-#           port: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: speedtest
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+spec:
+  tls:
+    - hosts:
+        - speedtest.alphavector.io
+      secretName: openspeedtest-tls
+  rules:
+    - host: speedtest.alphavector.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: openspeedtest
+                port:
+                  number: 3000
