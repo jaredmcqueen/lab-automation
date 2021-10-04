@@ -65,3 +65,17 @@
     kubeconfig: /etc/kubernetes/admin.conf
     namespace: argocd
     src: ~/argo-install.yaml
+- name: patch for loadbalancing
+  become: yes
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: /etc/kubernetes/admin.conf
+    namespace: argocd
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: argocd-server
+        namespace: argocd
+      spec:
+        type: LoadBalancer
