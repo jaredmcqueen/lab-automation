@@ -1,0 +1,60 @@
+#apiVersion: apps/v1
+apiVersion: argoproj.io/v1alpha1
+#kind: Deployment
+kind: Rollout
+metadata:
+  name: brownbag-k8s
+  namespace: brownbag-k8s
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: brownbag-k8s
+  template:
+    metadata:
+      labels:
+        app: brownbag-k8s
+    spec:
+      containers:
+        - name: brownbag-k8s
+          image: ghcr.io/jaredmcqueen/brownbag-k8s:6004fe3e1eb8a302e76cbc4a4d816074c5128da8
+      imagePullSecrets:
+        - name: regcred
+  strategy:
+      canary:
+        steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 50
+        - pause: {duration: 30}
+        - setWeight: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: brownbag-k8s
+  namespace: brownbag-k8s
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+  selector:
+    app: brownbag-k8s
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: brownbag-https
+  namespace: brownbag-k8s
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`brownbag.mcqueensolutions.com`)
+      kind: Rule
+      services:
+        - name: brownbag-k8s
+          port: 80
+  tls:
+    certResolver: le-prod

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: nfs-client
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+  - name: nfs-subdir-external-provisioner
+    version: 4.0.13
+    repository: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/

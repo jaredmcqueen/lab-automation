@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jira-scraper
+  namespace: jira-scraper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jira-scraper
+  template:
+    metadata:
+      labels:
+        app: jira-scraper
+    spec:
+      containers:
+        - name: jira-scraper
+          image: ghcr.io/jaredmcqueen/jira-scraper:f3eaa4796a44d02f7d5841fd193a0c86e53923d1
+          envFrom:
+            - secretRef:
+                name: jira-secrets
+      imagePullSecrets:
+        - name: regcred

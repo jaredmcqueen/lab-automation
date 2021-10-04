@@ -1,0 +1,30 @@
+- name: install core apps
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - thunar
+      - python-pip
+      - kubectl
+      - alacritty
+      - tmux
+      - htop
+      - curl
+      - pavucontrol
+      - google-chrome
+      - redshift
+      - flameshot
+      - openssh
+      - alsa-utils
+      - pavucontrol
+      - unzip
+- name: install office apps
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - slack-desktop
+      - spotify
+      - freerdp
+      - remmina
+      - terraform
+      - k9s
+      - libreoffice-fresh 

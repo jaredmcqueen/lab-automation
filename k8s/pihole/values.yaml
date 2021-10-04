@@ -1,0 +1,11 @@
+serviceDns:
+  type: LoadBalancer
+serviceDhcp:
+  enabled: false
+serviceWeb:
+  https:
+    enabled: false
+persistentVolumeClaim:
+  enabled: true
+DNS1: "1.1.1.1"
+DNS2: "8.8.8.8"

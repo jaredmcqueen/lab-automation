@@ -1,0 +1,21 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  labels:
+    name: ingress-nginx
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  destination:
+    namespace: ingress-nginx
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: k8s/ingress-nginx/
+    repoURL: https://github.com/jaredmcqueen/lab-automation.git
+    targetRevision: HEAD

@@ -1,0 +1,22 @@
+# # common
+# - hosts: all
+#   tasks:
+#     - include: common.yaml
+# 
+# # just the control plane
+# - hosts: controllers
+#   tasks:
+#     - include: controllers.yaml
+# 
+# # workers
+# - hosts: workers
+#   tasks:
+#     - include: workers.yaml
+
+# boostrap services
+- hosts: controllers[0]
+  vars:
+    metallb_start: 10.0.6.51
+    metallb_end: 10.0.6.59
+  tasks:
+    - include: services.yaml

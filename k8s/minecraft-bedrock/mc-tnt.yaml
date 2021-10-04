@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mc-tnt
+  namespace: minecraft-bedrock
+data:
+  EULA: "true"
+  GAMEMODE: "creative"
+  LEVEL_NAME: "TNT World"
+  LEVEL_TYPE: "FLAT"
+  LEVEL_SEED: "1334"
+  SERVER_PORT: "19132"
+  ALLOW_CHEATS: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc-tnt
+  namespace: minecraft-bedrock
+spec:
+  selector:
+    app: mc-tnt
+  ports:
+    - port: 19132
+      protocol: UDP
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: mc-tnt
+  name: mc-tnt
+  namespace: minecraft-bedrock
+spec:
+  replicas: 1
+  serviceName: mc-tnt
+  selector:
+    matchLabels:
+      app: mc-tnt
+  template:
+    metadata:
+      labels:
+        app: mc-tnt
+    spec:
+      containers:
+        - name: main
+          image: itzg/minecraft-bedrock-server
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: mc-tnt
+          volumeMounts:
+            - mountPath: /data
+              name: mcdata
+          ports:
+            - containerPort: 19132
+              protocol: UDP
+          readinessProbe: &probe
+            exec:
+              command:
+                - mc-monitor
+                - status-bedrock
+                - --host
+                - 127.0.0.1
+            initialDelaySeconds: 30
+          livenessProbe: *probe
+  volumeClaimTemplates:
+    - metadata:
+        name: mcdata
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepstack
+  namespace: deepstack
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: deepstack
+  template:
+    metadata:
+      labels:
+        app: deepstack
+    spec:
+      containers:
+        - name: deepstack
+          image: deepquestai/deepstack:cpu-2021.02.1
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          env:
+            - name: VISION_DETECTION
+              value: "True"

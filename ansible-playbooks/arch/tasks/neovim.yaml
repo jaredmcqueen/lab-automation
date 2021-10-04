@@ -1,0 +1,21 @@
+- name: install neovim stuff
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - neovim-nightly-bin
+      - python-pip
+      - fzf
+      - ripgrep
+      - nodejs
+      - npm
+      - xclip
+      - nerd-fonts-noto
+      # - noto-fonts
+      - amdvlk
+      - neovide-bin
+- name: install pynvim
+  shell: |
+    export npm_config_prefix="$HOME/.local"
+    npm install -g pyright
+    npm install -g lua-fmt
+

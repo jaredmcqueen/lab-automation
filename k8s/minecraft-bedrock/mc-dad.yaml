@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: bedrockserver
+  name: bedrockserver
+  namespace: minecraft-bedrock
+spec:
+  # never more than 1 since bedrockserver is not horizontally scalable
+  replicas: 1
+  serviceName: bedrockserver
+  selector:
+    matchLabels:
+      app: bedrockserver
+  template:
+    metadata:
+      labels:
+        app: bedrockserver
+    spec:
+      containers:
+        - name: main
+          image: itzg/minecraft-bedrock-server
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: minecraft-bedrock
+          volumeMounts:
+            - mountPath: /data
+              name: mcdata
+          ports:
+            - containerPort: 19132
+              protocol: UDP
+          readinessProbe: &probe
+            exec:
+              command:
+                - mc-monitor
+                - status-bedrock
+                - --host
+                # force health check against IPv4 port
+                - 127.0.0.1
+            initialDelaySeconds: 30
+          livenessProbe: *probe
+  volumeClaimTemplates:
+    - metadata:
+        name: mcdata
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bedrockserver
+  namespace: minecraft-bedrock
+spec:
+  selector:
+    app: bedrockserver
+  ports:
+    - port: 19132
+      protocol: UDP
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minecraft-bedrock
+  namespace: minecraft-bedrock
+  labels:
+    role: service-config
+    app: bedrockserver
+data:
+  EULA: "true"
+  GAMEMODE: "creative"
+  LEVEL_NAME: "M&M World"
+  LEVEL_SEED: "12270225"
+  SERVER_NAME: "M&M Server"
+  ALLOW_CHEATS: "true"

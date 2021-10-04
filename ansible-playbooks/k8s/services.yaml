@@ -1,0 +1,67 @@
+- name: install pip
+  become: yes
+  apt:
+    name: python3-pip
+    state: present
+- name: install kubernetes python
+  become: yes
+  pip:
+    name: openshift
+- name: create metallb-system namespace
+  become: yes
+  community.kubernetes.k8s:
+    name: metallb-system
+    api_version: v1
+    kind: Namespace
+    state: present
+    kubeconfig: /etc/kubernetes/admin.conf
+- name: download metallb manifest
+  become: yes
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+    dest: ~/metallb.yaml
+- name: install metallb
+  become: yes
+  community.kubernetes.k8s:
+    kubeconfig: /etc/kubernetes/admin.conf
+    state: present
+    src: ~/metallb.yaml
+
+- name: apply configmap
+  become: yes
+  community.kubernetes.k8s:
+    kubeconfig: /etc/kubernetes/admin.conf
+    state: present
+    definition:
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        namespace: metallb-system
+        name: config
+      data:
+        config: |
+          address-pools:
+          - name: default
+            protocol: layer2
+            addresses:
+            - {{ metallb_start }}-{{ metallb_end }}
+- name: create argocd namespace
+  become: yes
+  community.kubernetes.k8s:
+    name: argocd
+    api_version: v1
+    kind: Namespace
+    state: present
+    kubeconfig: /etc/kubernetes/admin.conf
+- name: download argocd manifest
+  become: yes
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    dest: ~/argo-install.yaml
+- name: install argocd
+  become: yes
+  community.kubernetes.k8s:
+    state: present
+    kubeconfig: /etc/kubernetes/admin.conf
+    namespace: argocd
+    src: ~/argo-install.yaml

@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jupyterhub-http
+  namespace: jupyterhub
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`jupyterhub.mcqueensolutions.com`)
+      kind: Rule
+      middlewares:
+        - name: nginx-redirect-scheme
+      services:
+        - name: proxy-public
+          namespace: jupyterhub
+          port: 80

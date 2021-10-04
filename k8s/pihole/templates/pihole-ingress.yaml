@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pihole-http
+  namespace: pihole
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`pihole.mcqueensolutions.com`)
+      kind: Rule
+      services:
+        - name: pihole-web
+          port: 80

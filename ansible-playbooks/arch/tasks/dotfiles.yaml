@@ -1,0 +1,14 @@
+- name: clone .dotfiles repo
+  git:
+    repo: 'git@github.com:jaredmcqueen/dotfiles.git'
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    recursive: yes
+    force: yes
+    update: yes
+    accept_hostkey: yes
+    version: main
+# oh-my-zsh automatically adds a .zshrc file
+- name: delete .zshrc
+  shell: rm -f $HOME/.zshrc
+- name: stow dotfiles
+  shell: sh $HOME/.dotfiles/stow.sh

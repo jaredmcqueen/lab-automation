@@ -1,0 +1,36 @@
+persistence:
+  enabled: true
+ingressRoute:
+  dashboard:
+    enabled: false
+additionalArguments:
+  - "--certificatesresolvers.le-staging.acme.email=jaredmcqueen@gmail.com"
+  - "--certificatesresolvers.le-staging.acme.storage=/data/le-staging.json"
+  - "--certificatesresolvers.le-staging.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+  - "--certificatesResolvers.le-staging.acme.dnschallenge=true"
+  - "--certificatesResolvers.le-staging.acme.dnschallenge.provider=cloudflare"
+  - "--certificatesresolvers.le-prod.acme.email=jaredmcqueen@gmail.com"
+  - "--certificatesresolvers.le-prod.acme.storage=/data/le-prod.json"
+  - "--certificatesresolvers.le-prod.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
+  - "--certificatesResolvers.le-prod.acme.dnschallenge=true"
+  - "--certificatesResolvers.le-prod.acme.dnschallenge.provider=cloudflare"
+  - "--api.insecure=true"
+  - "--serversTransport.insecureSkipVerify=true"
+env:
+  - name: CF_DNS_API_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare
+        key: dns-token
+ports:
+  elastic:
+    port: 9200
+    expose: true
+    exposedPort: 9200
+    protocol: TCP
+logs:
+  general:
+    # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+    level: INFO
+  access:
+    enabled: true

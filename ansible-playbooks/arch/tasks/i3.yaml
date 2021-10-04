@@ -1,0 +1,38 @@
+- name: install i3
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - xorg
+      - lightdm
+      - lightdm-gtk-greeter
+      - rofi
+      - picom-ibhagwan-git
+      - redshift
+      - alternating-layouts-git
+      - nerd-fonts-hack
+      - i3-wm
+      - stow
+      - feh
+      - lightdm-webkit-theme-aether
+- name: install python-i3ipc
+  pip:
+    name: i3ipc
+
+- name: install alternating-layouts-git
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - alternating-layouts-git
+
+- name: enable lightdm
+  become: yes
+  ansible.builtin.service:
+    name: lightdm
+
+- name: Uncomment line from /etc/lightdm/lightdm.conf
+  become: yes
+  lineinfile:
+    dest: /etc/lightdm/lightdm.conf
+    regexp: '^#logind-check-graphical=false$'
+    line: 'logind-check-graphical=true'
+

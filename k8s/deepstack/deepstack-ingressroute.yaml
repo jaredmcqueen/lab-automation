@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: deepstack
+  namespace: deepstack
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`deepstack.mcqueensolutions.com`)
+      kind: Rule
+      services:
+        - name: deepstack-service
+          port: 5000

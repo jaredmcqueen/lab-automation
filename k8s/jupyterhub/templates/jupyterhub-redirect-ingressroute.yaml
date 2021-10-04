@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nginx-redirect-scheme
+  namespace: jupyterhub
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+    port: "443"

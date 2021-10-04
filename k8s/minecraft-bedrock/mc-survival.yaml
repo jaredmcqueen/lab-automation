@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mc-survival
+  namespace: minecraft-bedrock
+data:
+  EULA: "true"
+  GAMEMODE: "survival"
+  LEVEL_NAME: "survival"
+  LEVEL_SEED: "0921"
+  ALLOW_CHEATS: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc-survival
+  namespace: minecraft-bedrock
+spec:
+  selector:
+    app: mc-survival
+  ports:
+    - port: 19132
+      protocol: UDP
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: mc-survival
+  name: mc-survival
+  namespace: minecraft-bedrock
+spec:
+  replicas: 1
+  serviceName: mc-survival
+  selector:
+    matchLabels:
+      app: mc-survival
+  template:
+    metadata:
+      labels:
+        app: mc-survival
+    spec:
+      containers:
+        - name: main
+          image: itzg/minecraft-bedrock-server
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: mc-survival
+          volumeMounts:
+            - mountPath: /data
+              name: mcdata
+          ports:
+            - containerPort: 19132
+              protocol: UDP
+          readinessProbe: &probe
+            exec:
+              command:
+                - mc-monitor
+                - status-bedrock
+                - --host
+                - 127.0.0.1
+            initialDelaySeconds: 30
+          livenessProbe: *probe
+  volumeClaimTemplates:
+    - metadata:
+        name: mcdata
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi

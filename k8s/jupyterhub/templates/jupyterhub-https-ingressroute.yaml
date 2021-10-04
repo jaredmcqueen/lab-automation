@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jupyterhub-https
+  namespace: jupyterhub
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`jupyterhub.mcqueensolutions.com`)
+      kind: Rule
+      middlewares:
+        - name: basic-auth
+      services:
+        - name: proxy-public
+          namespace: jupyterhub
+          port: 80
+  tls:
+    certResolver: le-prod
