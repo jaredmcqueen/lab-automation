@@ -1,8 +1,8 @@
 - hosts: localhost
   vars:
-    priv_key_src: "./.ssh/id_rsa"
+    priv_key_src: "./ssh/id_rsa"
     priv_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-    pub_key_src: "./.ssh/id_rsa.pub"
+    pub_key_src: "./ssh/id_rsa.pub"
     pub_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
   tasks:
     - include: tasks/apps.yaml
