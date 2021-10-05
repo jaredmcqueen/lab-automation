@@ -78,6 +78,7 @@
       - kubeadm
       - kubelet
       - kubectl
+      - nfs-common
     update_cache: yes
 - name: add inventory to hosts file
   become: yes
