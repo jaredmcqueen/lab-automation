@@ -1,22 +1,22 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: ingress-nginx
+  name: nfs-provisioner
   labels:
-    name: ingress-nginx
+    name: nfs-provisioner
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: nfs-provisioner
   namespace: argocd
 spec:
   destination:
-    namespace: ingress-nginx
+    namespace: nfs-provisioner
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: k8s/ingress-nginx/
+    path: k8s/nfs-provisioner/
     repoURL: https://github.com/jaredmcqueen/lab-automation.git
     targetRevision: HEAD
     helm:
