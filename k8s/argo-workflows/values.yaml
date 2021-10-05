@@ -11,3 +11,4 @@ argo-workflows:
       enabled: true
     serviceMonitor:
       enabled: true
+    containerRuntimeExecutor: pns
