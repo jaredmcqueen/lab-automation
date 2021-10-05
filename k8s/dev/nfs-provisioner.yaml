@@ -19,3 +19,6 @@ spec:
     path: k8s/nfs-provisioner/
     repoURL: https://github.com/jaredmcqueen/lab-automation.git
     targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml

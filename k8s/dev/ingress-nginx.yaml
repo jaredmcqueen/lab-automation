@@ -19,3 +19,6 @@ spec:
     path: k8s/ingress-nginx/
     repoURL: https://github.com/jaredmcqueen/lab-automation.git
     targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
