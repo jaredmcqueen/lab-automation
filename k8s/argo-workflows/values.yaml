@@ -1,11 +1,6 @@
 argo-workflows:
-  workflow:
-    serviceAccount:
-      create: true
-    rbac:
-      create: true
   controller:
     containerRuntimeExecutor: pns
-  server:
-    extraArgs:
-      - --auth-mode=client
+  # server:
+  #   extraArgs:
+  #     - --auth-mode=client
