@@ -5,10 +5,4 @@ argo-workflows:
     rbac:
       create: true
   controller:
-    metricsConfig:
-      enabled: true
-    telemetryConfig:
-      enabled: true
-    serviceMonitor:
-      enabled: true
     containerRuntimeExecutor: pns
