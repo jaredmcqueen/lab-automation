@@ -6,3 +6,6 @@ argo-workflows:
       create: true
   controller:
     containerRuntimeExecutor: pns
+  server:
+    extraArgs:
+      - --auth-mode=client
