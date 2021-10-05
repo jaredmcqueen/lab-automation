@@ -1,2 +1,3 @@
-controller:
-  containerRuntimeExecutor: pns
+argo-workflows:
+  controller:
+    containerRuntimeExecutor: pns
