@@ -26,7 +26,6 @@
     kubeconfig: /etc/kubernetes/admin.conf
     state: present
     src: ~/metallb.yaml
-
 - name: apply configmap
   become: yes
   community.kubernetes.k8s:
