@@ -1,0 +1,25 @@
+argo-cd:
+  server:
+    additionalProjects:
+      - name: default
+        namespace: argocd
+        additionalAnnotations:
+        sourceRepos:
+          - "*"
+        clusterResourceWhitelist:
+          - group: "*"
+            kind: "*"
+        destinations:
+          - namespace: "*"
+            server: "*"
+      - name: cd
+        namespace: argocd
+        additionalAnnotations:
+        sourceRepos:
+          - "*"
+        clusterResourceWhitelist:
+          - group: "*"
+            kind: "*"
+        destinations:
+          - namespace: "*"
+            server: "*"
