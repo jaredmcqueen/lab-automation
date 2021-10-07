@@ -1,6 +1,3 @@
 argo-workflows:
   controller:
     containerRuntimeExecutor: pns
-  # server:
-  #   extraArgs:
-  #     - --auth-mode=client
