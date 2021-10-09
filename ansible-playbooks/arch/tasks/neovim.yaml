@@ -2,7 +2,8 @@
   kewlfft.aur.aur:
     use: yay
     name:
-      - neovim-nightly-bin
+      #- neovim-nightly-bin
+      - neovim
       - python-pip
       - fzf
       - ripgrep

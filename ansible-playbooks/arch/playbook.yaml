@@ -6,9 +6,16 @@
     pub_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
   tasks:
     - include: tasks/apps.yaml
+      tags: apps
     - include: tasks/ssh.yaml
+      tags: ssh
     - include: tasks/i3.yaml
+      tags: i3
     - include: tasks/zsh.yaml
+      tags: zsh
     - include: tasks/neovim.yaml
+      tags: neovim
     - include: tasks/dotfiles.yaml
+      tags: dotfiles
     - include: tasks/cac.yaml
+      tags: cac

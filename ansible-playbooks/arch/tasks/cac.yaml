@@ -6,20 +6,29 @@
       - opensc
       - pcsc-tools
       - coolkey
-- name: enable pcscd
+
+- name: start and enable pcscd
   ignore_errors: yes
   become: yes
-  service:
-    name: pcscd
-    enabled: yes
-    state: started
-- name: install certs
+  shell: |
+    systemctl start pcscd
+    systemctl enable pcscd
+
+- name: download and install certs
   ignore_errors: yes
   shell: |
     curl https://militarycac.com/maccerts/AllCerts.p7b --output /tmp/certs.p7b
     openssl pkcs7 -inform DER -outform PEM -in /tmp/certs.p7b -print_certs > /tmp/certificate_bundle.cer
+
+- name: add to trust anchor
+  ignore_errors: yes
+  become: yes
+  shell: |
     killall -q chrome
     killall -q firefox
-    sudo trust anchor --store /tmp/certificate_bundle.cer
-    modutil -force -dbdir sql:$HOME/.pki/nssdb/ -add "CAC Module" -libfile /usr/lib/opensc-pkcs11.so
+    trust anchor --store /tmp/certificate_bundle.cer
 
+- name: add CAC Module
+  ignore_errors: yes
+  shell: |
+    modutil -force -dbdir sql:$HOME/.pki/nssdb/ -add "CAC Module" -libfile /usr/lib/opensc-pkcs11.so

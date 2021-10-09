@@ -41,4 +41,4 @@ echo "yay is installed"
 
 # run ansible
 echo "running playbook"
-ansible-playbook ./arch/playbook.yaml --ask-vault-pass
+ansible-playbook arch/playbook.yaml --ask-vault-pass

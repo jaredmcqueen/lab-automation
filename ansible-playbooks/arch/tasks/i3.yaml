@@ -26,8 +26,11 @@
 
 - name: enable lightdm
   become: yes
+  ignore_errors: yes
   ansible.builtin.service:
     name: lightdm
+    enabled: yes
+    state: started
 
 - name: Uncomment line from /etc/lightdm/lightdm.conf
   become: yes
