@@ -14,15 +14,12 @@
       - stow
       - feh
       - lightdm-webkit-theme-aether
+      - ranger
+      - ueberzug
 - name: install python-i3ipc
   pip:
     name: i3ipc
-
-- name: install alternating-layouts-git
-  kewlfft.aur.aur:
-    use: yay
-    name:
-      - alternating-layouts-git
+    name: pillow-simd
 
 - name: enable lightdm
   become: yes
