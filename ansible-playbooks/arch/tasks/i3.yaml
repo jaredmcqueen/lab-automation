@@ -26,16 +26,20 @@
 
 - name: enable lightdm
   become: yes
-  ignore_errors: yes
-  ansible.builtin.service:
-    name: lightdm
-    enabled: yes
-    state: started
+  shell: |
+    systemctl enable lightdm
 
 - name: Uncomment line from /etc/lightdm/lightdm.conf
   become: yes
   lineinfile:
     dest: /etc/lightdm/lightdm.conf
-    regexp: '^#logind-check-graphical=false$'
-    line: 'logind-check-graphical=true'
+    regexp: "^#logind-check-graphical=false$"
+    line: "logind-check-graphical=true"
 
+- name: patch left pointer cursor
+  become: yes
+  shell: |
+    rm /usr/share/icons/Adwaita/cursors/watch
+    rm /usr/share/icons/Adwaita/cursors/left_ptr_watch
+    sudo ln -s /usr/share/icons/Adwaita/cursors/left_ptr /usr/share/icons/Adwaita/cursors/watch
+    sudo ln -s /usr/share/icons/Adwaita/cursors/left_ptr /usr/share/icons/Adwaita/cursors/left_ptr_watch
