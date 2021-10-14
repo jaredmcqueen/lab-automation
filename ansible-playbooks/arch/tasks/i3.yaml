@@ -16,6 +16,7 @@
       - lightdm-webkit-theme-aether
       - ranger
       - ueberzug
+      - dunst
 - name: install python-i3ipc
   pip:
     name: i3ipc
