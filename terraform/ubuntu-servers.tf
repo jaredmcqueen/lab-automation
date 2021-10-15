@@ -86,6 +86,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   count       = var.vm_count
   name        = "${var.project_prefix}-${count.index}"
   agent       = 1
+  vmid        = "24${count.index}" 
   target_node = "mercury"
   clone       = "ubuntu-cloudinit"
   full_clone  = false
