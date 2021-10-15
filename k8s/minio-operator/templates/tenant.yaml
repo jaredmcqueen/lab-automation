@@ -1,0 +1,58 @@
+apiVersion: v1
+data:
+  accesskey: NTczYzdjM2EtOTNiMy00ODU4LWJhOTktMTg4ZDUyMTFhY2E3
+  secretkey: NGI5NDgzODQtN2ZkMy00NDRhLWJkZjktOWJlY2ExYTYyYTg0
+kind: Secret
+metadata:
+  name: minio-storage-creds-secret
+  namespace: default
+type: Opaque
+---
+apiVersion: v1
+data:
+  CONSOLE_ACCESS_KEY: YWRtaW4=
+  CONSOLE_SECRET_KEY: bWluaW9wYXNz
+kind: Secret
+metadata:
+  name: minio-storage-user
+  namespace: default
+type: Opaque
+---
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: minio-storage
+  namespace: default
+spec:
+  users:
+    - name: minio-storage-user
+  env:
+    - name: MINIO_NOTIFY_NATS_ENABLE
+      value: "on"
+    - name: MINIO_NOTIFY_NATS_ADDRESS
+      value: "10.0.0.3:4222"
+    - name: MINIO_NOTIFY_NATS_SUBJECT
+      value: ""
+  s3:
+    bucketDNS: true
+  credsSecret:
+    name: minio-storage-creds-secret
+  image: minio/minio:RELEASE.2021-10-13T00-23-17Z
+  imagePullSecret: {}
+  mountPath: /export
+  pools:
+    - servers: 1
+      volumeClaimTemplate:
+        apiVersion: v1
+        kind: persistentvolumeclaims
+        metadata:
+          namespace: default
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2560Mi
+          storageClassName: nfs-client
+      volumesPerServer: 4
+  requestAutoCert: true
