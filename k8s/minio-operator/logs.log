@@ -1,0 +1,5 @@
+Log file created at: 2021/10/15 02:44:41
+Running on machine: archtop
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1015 02:44:41.576031   55299 proxy.go:64] proxy command started

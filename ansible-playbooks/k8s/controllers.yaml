@@ -8,24 +8,24 @@
     kubeadm init \
     --apiserver-advertise-address={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} \
     --pod-network-cidr=192.168.0.0/16 >> /root/kubeinit.log
-# - name: deploy calico operators
-#   become: yes
-#   ignore_errors: yes
-#   shell: |
-#     kubectl --kubeconfig=/etc/kubernetes/admin.conf \
-#     create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
-# - name: deploy calico CRDs
-#   become: yes
-#   ignore_errors: yes
-#   shell: |
-#     kubectl --kubeconfig=/etc/kubernetes/admin.conf \
-#     create -f https://docs.projectcalico.org/manifests/custom-resources.yaml
-- name: install flannel
+- name: deploy calico operators
   become: yes
   ignore_errors: yes
   shell: |
     kubectl --kubeconfig=/etc/kubernetes/admin.conf \
-    apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+- name: deploy calico CRDs
+  become: yes
+  ignore_errors: yes
+  shell: |
+    kubectl --kubeconfig=/etc/kubernetes/admin.conf \
+    create -f https://docs.projectcalico.org/manifests/custom-resources.yaml
+# - name: install flannel
+#   become: yes
+#   ignore_errors: yes
+#   shell: |
+#     kubectl --kubeconfig=/etc/kubernetes/admin.conf \
+#     apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 - name: create join script
   become: yes
   shell: kubeadm token create --print-join-command > /joincluster.sh
