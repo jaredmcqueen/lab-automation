@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow # new type of k8s spec
+metadata:
+  generateName: whalesay- # name of the workflow spec
+spec:
+  entrypoint: whalesay # invoke the whalesay template
+  serviceAccountName: argo-workflow
+  templates:
+    - name: whalesay # name of the template
+      container:
+        image: docker/whalesay
+        command: [sh, -c]
+        args: ["cowsay hello world | tee /tmp/hello_world.txt"]
+      outputs:
+        artifacts:
+          - name: message
+            path: /tmp
+            s3:
+              insecure: true
+              endpoint: minio.default.svc.cluster.local
+              bucket: artifacts
+              key: hello_world.txt.tgz
+              accessKeySecret:
+                name: minio-storage-secret
+                key: accesskey
+              secretKeySecret:
+                name: minio-storage-secret
+                key: secretkey

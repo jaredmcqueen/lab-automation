@@ -1,0 +1,7 @@
+# common
+- hosts: all
+  tasks:
+    - include_tasks: tasks/pve.yaml
+      tags: pve
+    - include_tasks: tasks/packages.yaml
+      tags: packages

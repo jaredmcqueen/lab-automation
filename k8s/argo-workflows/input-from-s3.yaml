@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: input-artifact-s3-
+spec:
+  entrypoint: input-artifact-s3-example
+  templates:
+    - name: input-artifact-s3-example
+      serviceAccountName: argo-workflow
+      # inputs:
+      #   artifacts:
+      #     - name: jared
+      #       path: /
+      #       s3:
+      #         endpoint: minio.default.svc.cluster.local
+      #         insecure: false
+      #         bucket: argo
+      #         key: jared.txt
+      #         accessKeySecret:
+      #           name: minio-storage-secret
+      #           key: accesskey
+      #         secretKeySecret:
+      #           name: minio-storage-secret
+      #           key: secretkey
+      container:
+        image: debian:latest
+        command: [sh, -c]
+        args: ["sleep 10000"]
+        # args: ["cp /var/run/secrets/kubernetes.io/serviceaccount/ca.crt /usr/local/share/ca-certificates/ update-ca-certificates"]

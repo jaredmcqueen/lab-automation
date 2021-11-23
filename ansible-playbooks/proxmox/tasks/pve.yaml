@@ -1,0 +1,23 @@
+- name: comment out PVE enterprise
+  replace:
+    path: /etc/apt/sources.list.d/pve-enterprise.list
+    regexp: "^deb"
+    replace: "# deb"
+- name: Add specified repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://download.proxmox.com/debian bullseye pve-no-subscription
+    state: present
+- name: dist-upgrade
+  apt:
+    update_cache: yes
+    upgrade: "dist"
+- name: add nommconf to grub
+  replace:
+    path: /etc/default/grub
+    regexp: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet"'
+    replace: 'GRUB_CMDLINE_LINUX_DEFAULT="quiet pci=noaer"'
+- name: update grub
+  register: grubout
+  command: "update-grub"
+- debug:
+    var: grubout.stdout_lines

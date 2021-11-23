@@ -1,0 +1,29 @@
+Log file created at: 2021/10/14 11:46:34
+Running on machine: archlab
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+Log file created at: 2021/10/14 11:47:51
+Running on machine: archlab
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1014 11:47:51.956966  122252 init.go:73] init command started
+Log file created at: 2021/10/14 11:48:20
+Running on machine: archlab
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1014 11:48:20.189539  122377 proxy.go:64] proxy command started
+Log file created at: 2021/10/14 11:51:17
+Running on machine: archlab
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1014 11:51:17.023961  122876 delete.go:72] delete command started
+Log file created at: 2021/10/14 11:52:50
+Running on machine: archlab
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1014 11:52:50.244552  123188 init.go:73] init command started
+Log file created at: 2021/10/14 11:53:00
+Running on machine: archlab
+Binary: Built with gc go1.16.7 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1014 11:53:00.408446  123274 proxy.go:64] proxy command started

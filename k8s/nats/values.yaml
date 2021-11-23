@@ -1,0 +1,6 @@
+nats:
+  jetstream:
+    enabled: true
+  exporter:
+    enabled: false
+  k8sClusterDomain: cluster.local

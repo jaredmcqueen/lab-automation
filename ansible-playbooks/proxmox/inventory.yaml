@@ -1,0 +1,12 @@
+all: # keys must be unique, i.e. only one 'hosts' per group
+  children:
+    proxmox:
+      hosts:
+        mercury:
+          ansible_host: 10.0.0.7
+        apollo:
+          ansible_host: 10.0.0.8
+        gemini:
+          ansible_host: 10.0.0.9
+      vars:
+        ansible_user: root

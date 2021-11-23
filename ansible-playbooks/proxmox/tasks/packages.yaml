@@ -1,0 +1,14 @@
+- name: install packages
+  apt:
+    name: 
+      - lm-sensors
+      - software-properties-common
+      - htop
+      - ifupdown2
+      - net-tools
+      - linux-cpupower
+      - python3
+      - libguestfs-tools
+      - lshw
+    state: present
+    update_cache: true
