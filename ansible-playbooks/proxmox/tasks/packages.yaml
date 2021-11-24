@@ -1,4 +1,5 @@
 - name: install packages
+  tags: packages
   apt:
     name: 
       - lm-sensors
@@ -10,5 +11,7 @@
       - python3
       - libguestfs-tools
       - lshw
+      - ethtool
+      - bpytop
     state: present
     update_cache: true

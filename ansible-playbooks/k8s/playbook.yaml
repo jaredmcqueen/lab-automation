@@ -16,7 +16,7 @@
 # boostrap services
 - hosts: controllers[0]
   vars:
-    metallb_start: 10.0.6.50
-    metallb_end: 10.0.6.59
+    metallb_start: 10.0.6.20
+    metallb_end: 10.0.6.29
   tasks:
     - include: services.yaml

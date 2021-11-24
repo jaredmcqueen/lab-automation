@@ -5,3 +5,5 @@
       tags: pve
     - include_tasks: tasks/packages.yaml
       tags: packages
+    - include_tasks: tasks/wol.yaml
+      tags: wol
