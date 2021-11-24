@@ -1,0 +1,5 @@
+timescaledb:
+  secretNames:
+    credentials: my-deployment-credentials # defaults to RELEASE-credentials
+    certificate: my-deployment-certificate  # defaults to RELEASE-certificate
+    pgbackrest: my-certificate-pgbackrest # defaults to RELEASE-pgbackrest

@@ -28,9 +28,14 @@ variable "pve_password" {
   type = string
 }
 
-variable "pve_hostname" {
+variable "pve_ip" {
   type    = string
   default = "10.0.0.7"
+}
+
+variable "pve_hostname" {
+  type    = string
+  default = "apollo"
 }
 
 terraform {
@@ -43,7 +48,7 @@ terraform {
 
 provider "proxmox" {
   pm_tls_insecure = true
-  pm_api_url      = "https://${var.pve_hostname}:8006/api2/json"
+  pm_api_url      = "https://${var.pve_ip}:8006/api2/json"
   pm_user         = var.pve_username
   pm_password     = var.pve_password
 }
@@ -68,7 +73,7 @@ resource "null_resource" "cloud_init_config_files" {
   count = var.vm_count
   connection {
     type        = "ssh"
-    host        = var.pve_hostname
+    host        = var.pve_ip
     private_key = file("~/.ssh/id_rsa")
   }
 
@@ -87,7 +92,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   name        = "${var.project_prefix}-${count.index}"
   agent       = 1
   vmid        = "24${count.index}" 
-  target_node = "mercury"
+  target_node = var.pve_hostname
   clone       = "ubuntu-cloudinit"
   full_clone  = false
   os_type     = "cloud-init"
