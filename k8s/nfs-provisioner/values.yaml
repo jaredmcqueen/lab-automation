@@ -1,6 +1,6 @@
 nfs-subdir-external-provisioner:
   nfs:
     server: 10.0.6.3
-    path: /mnt/SSD/kubernetes
+    path: /mnt/ssd/k8s
   storageClass:
     defaultClass: true
