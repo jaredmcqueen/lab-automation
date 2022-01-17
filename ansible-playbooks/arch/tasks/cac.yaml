@@ -1,34 +1,30 @@
 - name: install apps
   kewlfft.aur.aur:
-    use: yay
     name:
       - ccid
       - opensc
       - pcsc-tools
       - coolkey
-
+    use: yay
 - name: start and enable pcscd
-  ignore_errors: yes
   become: yes
-  shell: |
-    systemctl start pcscd
-    systemctl enable pcscd
-
+  ignore_errors: true
+  service:
+    name: pcscd
+    state: started
+    enabled: true
 - name: download and install certs
-  ignore_errors: yes
+  ignore_errors: true
   shell: |
     curl https://militarycac.com/maccerts/AllCerts.p7b --output /tmp/certs.p7b
     openssl pkcs7 -inform DER -outform PEM -in /tmp/certs.p7b -print_certs > /tmp/certificate_bundle.cer
-
 - name: add to trust anchor
-  ignore_errors: yes
-  become: yes
+  become: true
+  ignore_errors: true
   shell: |
     killall -q chrome
     killall -q firefox
     trust anchor --store /tmp/certificate_bundle.cer
-
 - name: add CAC Module
-  ignore_errors: yes
-  shell: |
-    modutil -force -dbdir sql:$HOME/.pki/nssdb/ -add "CAC Module" -libfile /usr/lib/opensc-pkcs11.so
+  ignore_errors: true
+  shell: 'modutil -force -dbdir sql:$HOME/.pki/nssdb/ -add "CAC Module" -libfile /usr/lib/opensc-pkcs11.so'

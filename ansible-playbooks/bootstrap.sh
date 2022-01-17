@@ -40,5 +40,11 @@ fi
 echo "yay is installed"
 
 # run ansible
-echo "running playbook"
-ansible-playbook arch/playbook.yaml --ask-vault-pass
+if [ "$HOSTNAME" = "archtop" ]; 
+then
+    echo "running playbook with laptop tags"
+    ansible-playbook $(pwd)/arch/playbook.yaml --ask-vault-pass --ask-become-pass --tags "laptop"
+else
+    echo "running playbook"
+    ansible-playbook $(pwd)/arch/playbook.yaml --ask-vault-pass --ask-become-pass
+fi

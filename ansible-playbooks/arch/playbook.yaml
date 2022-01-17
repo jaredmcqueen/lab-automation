@@ -1,21 +1,21 @@
 - hosts: localhost
-  vars:
-    priv_key_src: "./ssh/id_rsa"
-    priv_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-    pub_key_src: "./ssh/id_rsa.pub"
-    pub_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
   tasks:
-    - include: tasks/apps.yaml
+    - import_tasks: tasks/apps.yaml
       tags: apps
-    - include: tasks/ssh.yaml
+    - import_tasks: tasks/ssh.yaml
       tags: ssh
-    - include: tasks/i3.yaml
+    - import_tasks: tasks/i3.yaml
       tags: i3
-    - include: tasks/zsh.yaml
+    - import_tasks: tasks/zsh.yaml
       tags: zsh
-    - include: tasks/neovim.yaml
+    - import_tasks: tasks/neovim.yaml
       tags: neovim
-    - include: tasks/dotfiles.yaml
+    - import_tasks: tasks/dotfiles.yaml
       tags: dotfiles
-    - include: tasks/cac.yaml
+    - import_tasks: tasks/cac.yaml
       tags: cac
+  vars:
+    priv_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    priv_key_src: ./ssh/id_rsa
+    pub_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+    pub_key_src: ./ssh/id_rsa.pub

@@ -1,22 +1,20 @@
 - name: install neovim stuff
   kewlfft.aur.aur:
-    use: yay
     name:
-      #- neovim-nightly-bin
+      - go
+      - gopls
       - neovim
-      - python-pip
-      - fzf
-      - ripgrep
       - nodejs
       - npm
+      - python-pip
       - xclip
-      - nerd-fonts-noto
-      # - noto-fonts
-      - amdvlk
-      - neovide-bin
-- name: install pynvim
+    use: yay
+- name: install npm libraries
   shell: |
     export npm_config_prefix="$HOME/.local"
     npm install -g pyright
     npm install -g lua-fmt
-
+    npm install -g prettier
+- name: install pynvim
+  pip:
+    name: pynvim

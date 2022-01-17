@@ -1,5 +1,5 @@
 - name: laptop apps
   kewlfft.aur.aur:
-    use: yay
     name:
       - brightnessctl
+    use: yay
