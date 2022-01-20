@@ -11,7 +11,7 @@
       - noto-fonts-emoji
       - openssh
       - otf-nerd-fonts-fira-code
-      - pavucontrol
+      - nerd-fonts-terminus #for terminal glyphs
       - pavucontrol
       - peek
       - python-pip
