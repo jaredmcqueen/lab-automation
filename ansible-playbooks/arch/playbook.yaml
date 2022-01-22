@@ -1,18 +1,18 @@
 - hosts: localhost
   tasks:
-    - import_tasks: tasks/apps.yaml
+    - import_tasks: apps.yaml
       tags: apps
-    - import_tasks: tasks/i3.yaml
+    - import_tasks: i3.yaml
       tags: i3
-    - import_tasks: tasks/zsh.yaml
+    - import_tasks: zsh.yaml
       tags: zsh
-    - import_tasks: tasks/neovim.yaml
+    - import_tasks: neovim.yaml
       tags: neovim
-    - import_tasks: tasks/dotfiles.yaml
+    - import_tasks: dotfiles.yaml
       tags: dotfiles
-    - import_tasks: tasks/cac.yaml
+    - import_tasks: cac.yaml
       tags: cac
-    - import_tasks: tasks/fonts.yaml
+    - import_tasks: fonts.yaml
       tags: fonts
   vars:
     priv_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
