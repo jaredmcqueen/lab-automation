@@ -2,8 +2,6 @@
   tasks:
     - import_tasks: tasks/apps.yaml
       tags: apps
-    - import_tasks: tasks/ssh.yaml
-      tags: ssh
     - import_tasks: tasks/i3.yaml
       tags: i3
     - import_tasks: tasks/zsh.yaml
@@ -14,6 +12,8 @@
       tags: dotfiles
     - import_tasks: tasks/cac.yaml
       tags: cac
+    - import_tasks: tasks/fonts.yaml
+      tags: fonts
   vars:
     priv_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
     priv_key_src: ./ssh/id_rsa

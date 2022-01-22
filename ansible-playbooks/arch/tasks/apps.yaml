@@ -3,15 +3,13 @@
     name:
       - alacritty
       - alsa-utils
+      - brightnessctl # for laptop
       - curl
       - flameshot
       - fzf
       - google-chrome
       - htop
-      - noto-fonts-emoji
       - openssh
-      - otf-nerd-fonts-fira-code
-      - nerd-fonts-terminus #for terminal glyphs
       - pavucontrol
       - peek
       - python-pip

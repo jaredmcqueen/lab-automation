@@ -13,7 +13,7 @@
 - name: update yay
   become: yes
   command: yay -Sy
-- name: update pacman and install fonts
+- name: install special fonts
   kewlfft.aur.aur:
     use: yay
     name:
@@ -23,3 +23,5 @@
       - ttf-lilex-icursive-s12
       - ttf-meslo-icursive-s12
       - ttf-source-code-pro-icursive-s12
+      - nerd-fonts-terminus # for terminal glyphs
+      - noto-fonts-emoji    # for emojis

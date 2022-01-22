@@ -36,6 +36,7 @@ if ! [ -x "$(command -v yay)" ]; then
   git clone https://aur.archlinux.org/yay-bin.git
   cd yay-bin
   makepkg -si --noconfirm
+  cd ..
 fi
 echo "yay is installed"
 
@@ -43,7 +44,7 @@ echo "yay is installed"
 if [ "$HOSTNAME" = "archtop" ]; 
 then
     echo "running playbook with laptop tags"
-    ansible-playbook $(pwd)/arch/playbook.yaml --ask-vault-pass --ask-become-pass --tags "laptop"
+    ansible-playbook /home/jared/Projects/lab-automation/ansible-playbooks/arch/playbook.yaml --ask-vault-pass --ask-become-pass --tags "laptop"
 else
     echo "running playbook"
     ansible-playbook $(pwd)/arch/playbook.yaml --ask-vault-pass --ask-become-pass
