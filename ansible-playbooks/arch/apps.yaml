@@ -18,6 +18,7 @@
       - thunar
       - tmux
       - unzip
+      - v41l-utils # for webcam colors
     use: yay
 - name: install office apps
   kewlfft.aur.aur:

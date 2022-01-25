@@ -1,21 +1,21 @@
 - name: install i3
   kewlfft.aur.aur:
     name:
-      - xorg
+      - alternating-layouts-git
+      - dunst
+      - feh
+      - i3-wm
       - lightdm
       - lightdm-gtk-greeter
-      - rofi
-      - picom-ibhagwan-git
-      - redshift
-      - alternating-layouts-git
-      - nerd-fonts-hack
-      - i3-wm
-      - stow
-      - feh
       - lightdm-webkit-theme-aether
+      - picom-ibhagwan-git
+      - polybar
       - ranger
+      - redshift
+      - rofi
+      - stow
       - ueberzug
-      - dunst
+      - xorg
     use: yay
 - name: install python-i3ipc
   pip:
