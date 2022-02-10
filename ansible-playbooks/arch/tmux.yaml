@@ -1,0 +1,15 @@
+- name: Create tmux directory
+  ansible.builtin.file:
+    path: ~/.tmux/plugins/tpm
+    state: directory
+      #    mode: '0755'
+    recurse: yes
+- name: clone tmux plugin manager (TPM)
+  git:
+    accept_hostkey: true
+    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+    force: true
+    recursive: true
+    repo: https://github.com/tmux-plugins/tpm
+    update: true
+    version: master

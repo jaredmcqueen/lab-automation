@@ -19,7 +19,9 @@
     use: yay
 - name: install python-i3ipc
   pip:
-    name: pillow-simd
+    name: 
+      - pillow-simd
+      - i3ipc
 - name: enable lightdm
   become: true
   shell: "systemctl enable lightdm"

@@ -10,6 +10,8 @@
       tags: zsh
     - import_tasks: neovim.yaml
       tags: neovim
+    - import_tasks: tmux.yaml
+      tags: tmux
     - import_tasks: dotfiles.yaml
       tags: dotfiles
     - import_tasks: cac.yaml
