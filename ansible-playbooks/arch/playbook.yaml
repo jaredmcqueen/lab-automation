@@ -1,5 +1,7 @@
 - hosts: localhost
   tasks:
+    - import_tasks: ssh.yaml
+      tags: ssh
     - import_tasks: apps.yaml
       tags: apps
     - import_tasks: i3.yaml

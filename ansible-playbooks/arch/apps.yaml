@@ -3,7 +3,7 @@
     name:
       - alacritty
       - alsa-utils
-      - brightnessctl # for laptop
+      - brightnessctl
       - curl
       - flameshot
       - fzf
@@ -18,7 +18,7 @@
       - thunar
       - tmux
       - unzip
-      - v41l-utils # for webcam colors
+      - v4l-utils # for webcam colors
     use: yay
 - name: install office apps
   kewlfft.aur.aur:
