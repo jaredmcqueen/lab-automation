@@ -20,4 +20,4 @@
       - ttf-hack-icursive-s12
       - otf-font-awesome
       - nerd-fonts-terminus # for terminal glyphs
-      - noto-fonts-emoji    # for emojis
+      - noto-fonts-emoji-apple
