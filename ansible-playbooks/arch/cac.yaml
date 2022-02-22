@@ -22,6 +22,7 @@
   become: true
   ignore_errors: true
   shell: |
+    killall -q brave
     killall -q chrome
     killall -q firefox
     trust anchor --store /tmp/certificate_bundle.cer

@@ -7,7 +7,7 @@
       - curl
       - flameshot
       - fzf
-      - google-chrome
+      - brave-bin
       - htop
       - openssh
       - pavucontrol
