@@ -1,5 +1,13 @@
 - hosts: localhost
   tasks:
+    - name: create Projects
+      file:
+        path: /home/jared/Projects
+        state: directory
+    - name: create Documents
+      file:
+        path: /home/jared/Documents
+        state: directory
     - import_tasks: ssh.yaml
       tags: ssh
     - import_tasks: apps.yaml
