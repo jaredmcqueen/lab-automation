@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ubuntu
-  labels:
-    app: ubuntu
+  name: ubuntu-debug
 spec:
   containers:
     - image: ubuntu
@@ -12,4 +10,3 @@ spec:
         - "604800"
       imagePullPolicy: IfNotPresent
       name: ubuntu
-  restartPolicy: Always

@@ -1,14 +1,14 @@
 all: # keys must be unique, i.e. only one 'hosts' per group
   children:
-    controllers:
+    controller:
       hosts:
         dev-controller:
           ansible_host: 10.0.6.11
-    workers:
-      hosts:
-        dev-worker1:
-          ansible_host: 10.0.6.12
-        dev-worker2:
-          ansible_host: 10.0.6.13
-        dev-worker3:
-          ansible_host: 10.0.6.14
+    # workers:
+    #   hosts:
+    #     dev-worker1:
+    #       ansible_host: 10.0.6.12
+    #     dev-worker2:
+    #       ansible_host: 10.0.6.13
+    #     dev-worker3:
+    #       ansible_host: 10.0.6.14

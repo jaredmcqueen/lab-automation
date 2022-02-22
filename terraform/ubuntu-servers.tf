@@ -38,6 +38,26 @@ variable "pve_hostname" {
   default = "apollo"
 }
 
+variable "memory" {
+  type    = number
+  default = 4096
+}
+
+variable "cores" {
+  type    = number
+  default = 4
+}
+
+variable "diskSize" {
+  type    = string
+  default = "15G"
+}
+
+variable "diskLocation" {
+  type    = string
+  default = "local-lvm"
+}
+
 terraform {
   required_providers {
     proxmox = {
@@ -96,16 +116,16 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   clone       = "ubuntu-cloudinit"
   full_clone  = false
   os_type     = "cloud-init"
-  cores       = 4
+  cores       = var.cores
   sockets     = "1"
   cpu         = "host"
-  memory      = 4096
+  memory      = var.memory
   scsihw      = "virtio-scsi-pci"
 
   disk {
     type     = "virtio"
-    storage  = "local-lvm"
-    size     = "10G"
+    storage  = var.diskLocation
+    size     = var.diskSize
     discard  = "on"
     iothread = 1
   }
@@ -113,7 +133,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   # vmbr1 is my VM network in proxmox 
   network {
     model  = "virtio"
-    bridge = "vmbr1"
+    bridge = "vmbr6"
   }
 
   lifecycle {

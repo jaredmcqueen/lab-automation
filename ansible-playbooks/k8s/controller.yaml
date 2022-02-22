@@ -1,0 +1,45 @@
+- name: pull required k8s containers
+  tags: controller
+  become: yes
+  shell: kubeadm config images pull
+- name: initialize k8s cluster
+  tags: controller
+  become: yes
+  ignore_errors: yes
+  shell: |
+    kubeadm init \
+    --apiserver-advertise-address={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} \
+    --pod-network-cidr=10.244.0.0/16 >> /root/kubeinit.log
+- name: copy config for easy scp access
+  tags: controller
+  become: yes
+  ignore_errors: yes
+  shell: |
+    cp /etc/kubernetes/admin.conf /tmp/config
+    chown jared:jared /tmp/config
+    chmod 600 /tmp/config
+- name: deploy flannel
+  tags: controller
+  become: yes
+  ignore_errors: yes
+  shell: |
+    kubectl --kubeconfig=/etc/kubernetes/admin.conf \
+    apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+- name: make the masters schedulable
+  tags: controller
+  become: yes
+  ignore_errors: yes
+  shell: |
+    kubectl --kubeconfig=/etc/kubernetes/admin.conf \
+    taint node $(hostname) node-role.kubernetes.io/master:NoSchedule-
+- name: install pip
+  tags: controller
+  become: yes
+  apt:
+    name: python3-pip
+    state: present
+- name: install kubernetes python
+  tags: controller
+  become: yes
+  pip:
+    name: openshift

@@ -1,10 +1,13 @@
 - name: create join commmand
+  tags: workers
+  delegate_to: "{{ groups['controllers'][0]}}"
   become: yes
   shell: kubeadm token create --print-join-command
   register: kubeadm_join_cmd
-  delegate_to: "{{ groups['controllers'][0]}}"
 - name: store join command
+  tags: workers
   action: copy content="{{ kubeadm_join_cmd.stdout }}" dest="/tmp/kubeadm-join.sh"
 - name: join cluster
+  tags: workers
   become: yes
   shell: "sh /tmp/kubeadm-join.sh"

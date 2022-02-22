@@ -1,34 +1,29 @@
-- name: install pip
-  become: yes
-  apt:
-    name: python3-pip
-    state: present
-- name: install kubernetes python
-  become: yes
-  pip:
-    name: openshift
 - name: create metallb-system namespace
+  tags: services
   become: yes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     name: metallb-system
     api_version: v1
     kind: Namespace
     state: present
     kubeconfig: /etc/kubernetes/admin.conf
 - name: download metallb manifest
+  tags: services
   become: yes
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
     dest: ~/metallb.yaml
 - name: install metallb
+  tags: services
   become: yes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     kubeconfig: /etc/kubernetes/admin.conf
     state: present
     src: ~/metallb.yaml
 - name: apply configmap
+  tags: services
   become: yes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     kubeconfig: /etc/kubernetes/admin.conf
     state: present
     definition:
@@ -45,28 +40,32 @@
             addresses:
             - {{ metallb_start }}-{{ metallb_end }}
 - name: create argocd namespace
+  tags: services
   become: yes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     name: argocd
     api_version: v1
     kind: Namespace
     state: present
     kubeconfig: /etc/kubernetes/admin.conf
 - name: download argocd manifest
+  tags: services
   become: yes
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
     dest: ~/argo-install.yaml
 - name: install argocd
+  tags: services
   become: yes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     kubeconfig: /etc/kubernetes/admin.conf
     namespace: argocd
     src: ~/argo-install.yaml
 - name: patch for loadbalancing
+  tags: services
   become: yes
-  community.kubernetes.k8s:
+  kubernetes.core.k8s:
     state: present
     kubeconfig: /etc/kubernetes/admin.conf
     namespace: argocd
