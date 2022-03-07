@@ -1,7 +1,0 @@
-apiVersion: v2
-name: timescaledb
-version: 0.0.1
-dependencies:
-  - name: timescaledb-single
-    version: 0.10.0
-    repository: https://raw.githubusercontent.com/timescale/timescaledb-kubernetes/master/charts/repo/

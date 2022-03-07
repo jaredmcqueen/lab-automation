@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tick-generator
+  labels:
+    app: tick-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tick-generator
+  template:
+    metadata:
+      labels:
+        app: tick-generator
+    spec:
+      containers:
+      - name: tick-generator
+        image: ghcr.io/jaredmcqueen/tick-generator:latest
+        env:
+          - name: SYMBOL_COUNT
+            value: "3000"
+          - name: REDIS_ENDPOINT
+            value: "redis:6379"
