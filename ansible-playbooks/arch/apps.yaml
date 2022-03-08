@@ -19,6 +19,7 @@
       - tmux
       - unzip
       - v4l-utils # for webcam colors
+      - xfce4-power-manager
     use: yay
 - name: install office apps
   kewlfft.aur.aur:
