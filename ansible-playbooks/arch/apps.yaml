@@ -20,6 +20,8 @@
       - unzip
       - v4l-utils # for webcam colors
       - xfce4-power-manager
+      - wireguard-tools
+      - openresolv # for wireguard-tools
     use: yay
 - name: install office apps
   kewlfft.aur.aur:
