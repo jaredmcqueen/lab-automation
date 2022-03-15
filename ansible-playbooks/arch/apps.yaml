@@ -22,6 +22,7 @@
       - xfce4-power-manager
       - wireguard-tools
       - openresolv # for wireguard-tools
+      - wol
     use: yay
 - name: install office apps
   kewlfft.aur.aur:
