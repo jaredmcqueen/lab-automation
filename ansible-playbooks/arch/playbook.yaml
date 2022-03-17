@@ -1,5 +1,6 @@
 - hosts: localhost
   tasks:
+<<<<<<< Updated upstream
     - name: create Projects
       file:
         path: /home/jared/Projects
@@ -9,6 +10,13 @@
         path: /home/jared/Documents
         state: directory
     - import_tasks: ssh.yaml
+=======
+    - include: tasks/fonts.yaml
+      tags: fonts
+    - include: tasks/apps.yaml
+      tags: apps
+    - include: tasks/ssh.yaml
+>>>>>>> Stashed changes
       tags: ssh
     - import_tasks: apps.yaml
       tags: apps

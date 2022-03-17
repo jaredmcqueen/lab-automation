@@ -2,6 +2,7 @@ all: # keys must be unique, i.e. only one 'hosts' per group
   children:
     controller:
       hosts:
+<<<<<<< Updated upstream
         dev-controller:
           ansible_host: 10.0.6.11
     # workers:
@@ -12,3 +13,13 @@ all: # keys must be unique, i.e. only one 'hosts' per group
     #       ansible_host: 10.0.6.13
     #     dev-worker3:
     #       ansible_host: 10.0.6.14
+=======
+        controller:
+          ansible_host: 10.0.6.71
+    workers:
+      hosts:
+        worker1:
+          ansible_host: 10.0.6.72
+        worker2:
+          ansible_host: 10.0.6.73
+>>>>>>> Stashed changes

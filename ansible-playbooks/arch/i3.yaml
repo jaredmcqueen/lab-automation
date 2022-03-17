@@ -28,8 +28,12 @@
 - name: Uncomment line from /etc/lightdm/lightdm.conf
   become: true
   lineinfile:
+<<<<<<< Updated upstream:ansible-playbooks/arch/i3.yaml
     dest: /etc/lightdm/lightdm.conf
     line: logind-check-graphical=true
+=======
+    path: /etc/lightdm/lightdm.conf
+>>>>>>> Stashed changes:ansible-playbooks/arch/tasks/i3.yaml
     regexp: "^#logind-check-graphical=false$"
 - name: patch left pointer cursor
   become: true

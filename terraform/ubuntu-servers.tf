@@ -83,6 +83,7 @@ data "template_file" "user_data" {
     password = var.pve_password
   }
 }
+
 resource "local_file" "cloud_init_user_data_file" {
   count    = var.vm_count
   content  = data.template_file.user_data[count.index].rendered

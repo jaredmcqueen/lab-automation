@@ -3,4 +3,8 @@
 *.tfstate
 *.tfstate.*
 *.terraform.lock.hcl
+<<<<<<< Updated upstream
 logs.txt
+=======
+*logs.log
+>>>>>>> Stashed changes
