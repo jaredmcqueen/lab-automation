@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nfs-provisioner
+  name: metallb
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jaredmcqueen/lab-automation.git'
-    path: k8s/charts/nfs-provisioner
+    path: charts/metallb
     targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: nfs-provisioner
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: true

@@ -11,9 +11,6 @@
     - include_tasks: worker.yaml
       tags: workers
 - hosts: controller
-  tags: services
-  vars:
-    metallb_start: 10.0.6.20
-    metallb_end: 10.0.6.29
   tasks:
     - include_tasks: services.yaml
+      tags: services
