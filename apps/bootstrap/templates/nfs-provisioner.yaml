@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: nfs-provisioner
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: 'https://github.com/jaredmcqueen/lab-automation.git'
-    path: charts/ingress-nginx
+    path: charts/nfs-provisioner
     targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ingress-nginx
+    namespace: nfs-provisioner
   syncPolicy:
     automated:
       prune: true
