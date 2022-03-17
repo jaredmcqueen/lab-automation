@@ -10,7 +10,3 @@
   tasks:
     - include_tasks: worker.yaml
       tags: workers
-- hosts: controller
-  tasks:
-    - include_tasks: services.yaml
-      tags: services

@@ -129,7 +129,6 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
     storage  = var.diskLocation
     size     = var.diskSize
     discard  = "on"
-    iothread = 1
   }
 
   # vmbr1 is my VM network in proxmox 

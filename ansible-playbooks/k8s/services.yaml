@@ -1,12 +1,3 @@
-- name: create metallb-system namespace
-  tags: services
-  become: yes
-  kubernetes.core.k8s:
-    name: metallb-system
-    api_version: v1
-    kind: Namespace
-    state: present
-    kubeconfig: /etc/kubernetes/admin.conf
 - name: create argocd namespace
   tags: services
   become: yes
