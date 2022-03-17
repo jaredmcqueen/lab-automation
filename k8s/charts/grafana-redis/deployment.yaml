@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-redis
+  labels:
+    app: grafana-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-redis
+  template:
+    metadata:
+      labels:
+        app: grafana-redis
+    spec:
+      containers:
+      - name: grafana-redis
+        image: grafana/grafana
+        ports:
+          - containerPort: 3000
+        env:
+          - name: GF_INSTALL_PLUGINS
+            value: "redis-app,redis-explorer-app"
+

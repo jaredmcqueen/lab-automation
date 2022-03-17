@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tick-receiver
+  labels:
+    app: tick-receiver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tick-receiver
+  template:
+    metadata:
+      labels:
+        app: tick-receiver
+    spec:
+      containers:
+      - name: tick-receiver
+        image: ghcr.io/jaredmcqueen/tick-receiver:latest
+        env:
+          - name: REDIS_ENDPOINT
+            value: "redis:6379"
+        envFrom:
+          - secretRef:
+              name: alpaca
+

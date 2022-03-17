@@ -86,7 +86,7 @@ data "template_file" "user_data" {
 resource "local_file" "cloud_init_user_data_file" {
   count    = var.vm_count
   content  = data.template_file.user_data[count.index].rendered
-  filename = "${path.module}/files/${var.project_prefix}_user_data_${count.index}.cfg"
+  filename = "${path.module}/files/${var.project_prefix}_user_data_${count.index}.yml"
 }
 
 resource "null_resource" "cloud_init_config_files" {
@@ -111,11 +111,12 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   count       = var.vm_count
   name        = "${var.project_prefix}-${count.index}"
   agent       = 1
-  vmid        = "24${count.index}" 
+  vmid        = "30${count.index}"
   target_node = var.pve_hostname
   clone       = "ubuntu-cloudinit"
-  full_clone  = false
-  os_type     = "cloud-init"
+  full_clone  = true
+  os_type     = "l26"
+  # os_type     = "cloud-init"
   cores       = var.cores
   sockets     = "1"
   cpu         = "host"
