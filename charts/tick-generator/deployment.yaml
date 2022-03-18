@@ -15,10 +15,5 @@ spec:
         app: tick-generator
     spec:
       containers:
-      - name: tick-generator
-        image: ghcr.io/jaredmcqueen/tick-generator:latest
-        env:
-          - name: SYMBOL_COUNT
-            value: "3000"
-          - name: REDIS_ENDPOINT
-            value: "redis:6379"
+        - name: tick-generator
+          image: ghcr.io/jaredmcqueen/tick-generator:latest

@@ -17,10 +17,8 @@ spec:
       containers:
       - name: tick-receiver
         image: ghcr.io/jaredmcqueen/tick-receiver:latest
-        env:
-          - name: REDIS_ENDPOINT
-            value: "redis:6379"
         envFrom:
+          - configMapRef:
+            name: tick-generator
           - secretRef:
-              name: alpaca
-
+            name: alpaca
