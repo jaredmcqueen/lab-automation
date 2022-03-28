@@ -15,10 +15,10 @@ spec:
         app: tick-receiver
     spec:
       containers:
-      - name: tick-receiver
-        image: ghcr.io/jaredmcqueen/tick-receiver:latest
-        envFrom:
-          - configMapRef:
-            name: tick-generator
-          - secretRef:
-            name: alpaca
+        - name: tick-receiver
+          image: ghcr.io/jaredmcqueen/tick-receiver:latest
+          envFrom:
+            - configMapRef:
+                name: tick-generator
+            - secretRef:
+                name: alpaca
