@@ -19,4 +19,4 @@ spec:
         image: redis/redis-stack:latest
         ports:
         - containerPort: 6379
-        - containerPort: 8081
+        - containerPort: 8001
