@@ -4,7 +4,7 @@ metadata:
   name: redis
 spec:
   selector:
-    app: redis
+    app: redis-stack
   ports:
     - protocol: TCP
       port: 6379
@@ -16,7 +16,7 @@ metadata:
   name: redis-insight
 spec:
   selector:
-    app: redis
+    app: redis-stack
   ports:
     - protocol: TCP
       port: 8081
