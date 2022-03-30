@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-streams-timescaledb
+  labels:
+    app: redis-streams-timescaledb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-streams-timescaledb
+  template:
+    metadata:
+      labels:
+        app: redis-streams-timescaledb
+    spec:
+      containers:
+      - name: redis-streams-timescaledb
+        image: ghcr.io/jaredmcqueen/redis-streams-timescaledb:latest
+        envFrom:
+          - configMapRef:
+              name: redis-streams-timescaledb
