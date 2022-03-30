@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: redis-stack
-        image: redislabs/redis-stack:latest
+        image: redis/redis-stack:latest
         ports:
         - containerPort: 6379
         - containerPort: 8081
