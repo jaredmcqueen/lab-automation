@@ -1,0 +1,5 @@
+usePassword: false
+cluster:
+  init: true
+  nodes: 3
+  replicas: 0

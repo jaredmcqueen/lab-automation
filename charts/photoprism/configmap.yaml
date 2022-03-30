@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: photoprism
+  namespace: photoprism
+data:
+  PHOTOPRISM_ADMIN_PASSWORD: changeme
+  PHOTOPRISM_ORIGINALS_PATH: /photoprism/originals
+  PHOTOPRISM_STORAGE_PATH: /photoprism/storage
+  PHOTOPRISM_CACHE_PATH: /photoprism/cache
