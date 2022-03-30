@@ -15,24 +15,10 @@ spec:
         app: alpaca-streaming-receiver
     spec:
       containers:
-<<<<<<< HEAD:charts/tick-receiver/deployment.yaml
-        - name: tick-receiver
-          image: ghcr.io/jaredmcqueen/tick-receiver:latest
-          envFrom:
-            - configMapRef:
-                name: tick-generator
-            - secretRef:
-                name: alpaca
-=======
       - name: alpaca-streaming-receiver
         image: ghcr.io/jaredmcqueen/alpaca-streaming-receiver:latest
-        env:
-          - name: REDIS_ENDPOINT
-            value: "redis:6379"
-          - name: FLUSH_DB
-            value: "false"
         envFrom:
           - secretRef:
               name: alpaca
-
->>>>>>> d99b135 (changed name of alpaca-streaming-receiver):charts/alpaca-streaming-receiver/deployment.yaml
+          - configMapRef:
+              name: alpaca-streaming-receiver
