@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: redis-streams-timeseries
+data:
+  REDIS_STREAMS_ENDPOINT: "redis:6379"
+  REDIS_TIMESERIES_ENDPOINT: "redis:6379"
+  REDIS_STREAM_START: "$"
