@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: timescaledb
   labels:
     app: timescaledb
+  name: timescaledb
 spec:
   replicas: 1
+  serviceName: timescaledb
   selector:
     matchLabels:
       app: timescaledb
@@ -14,9 +15,16 @@ spec:
       labels:
         app: timescaledb
     spec:
+      # securityContext:
+        # runAsUser: 70
+        # runAsGroup: 70
+        # fsGroup: 70
+        # runAsNonRoot: true
       containers:
         - name: timescaledb
-          image: timescale/timescaledb:latest-pg14
+          # image: timescale/timescaledb:latest-pg14
+          image: timescale/timescaledb-ha:pg14-latest
+          # image: timescale/timescaledb:latest-pg14-bitnami
           ports:
             - containerPort: 5432
           env:
@@ -27,9 +35,9 @@ spec:
             - name: POSTGRES_DB
               value: "postgres"
             - name: PGDATA
-              value: "/var/lib/postgresql/data"
+              value: "/data"
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /data
               name: tsdb-data
   volumeClaimTemplates:
     - metadata:
@@ -39,4 +47,4 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 10Gi

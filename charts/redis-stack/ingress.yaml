@@ -12,6 +12,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: redis
+            name: redis-insight
             port:
-              number: 6379
+              number: 8001
