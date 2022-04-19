@@ -15,11 +15,6 @@ spec:
       labels:
         app: timescaledb
     spec:
-      # securityContext:
-        # runAsUser: 70
-        # runAsGroup: 70
-        # fsGroup: 70
-        # runAsNonRoot: true
       containers:
         - name: timescaledb
           # image: timescale/timescaledb:latest-pg14
@@ -34,17 +29,27 @@ spec:
               value: "password"
             - name: POSTGRES_DB
               value: "postgres"
-            - name: PGDATA
-              value: "/data"
           volumeMounts:
-            - mountPath: /data
-              name: tsdb-data
+            - name: data-volume
+              mountPath: "/var/lib/postgresql"
+              subPath: ""
+            - name: wal-volume
+              mountPath: "/var/lib/postgresql/wal"
+              subPath: ""
   volumeClaimTemplates:
     - metadata:
-        name: tsdb-data
+        name: data-volume
       spec:
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
+            storage: 50Gi
+    - metadata:
+        name: wal-volume
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
