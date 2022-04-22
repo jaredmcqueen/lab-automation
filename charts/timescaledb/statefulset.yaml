@@ -17,9 +17,7 @@ spec:
     spec:
       containers:
         - name: timescaledb
-          # image: timescale/timescaledb:latest-pg14
           image: timescale/timescaledb-ha:pg14-latest
-          # image: timescale/timescaledb:latest-pg14-bitnami
           ports:
             - containerPort: 5432
           env:
@@ -30,15 +28,13 @@ spec:
             - name: POSTGRES_DB
               value: "postgres"
           volumeMounts:
-            - name: data-volume
-              mountPath: "/var/lib/postgresql"
-              subPath: ""
-            - name: wal-volume
+            - name: data
+              mountPath: "/home/postgres/pgdata/data"
+            - name: wal
               mountPath: "/var/lib/postgresql/wal"
-              subPath: ""
   volumeClaimTemplates:
     - metadata:
-        name: data-volume
+        name: data
       spec:
         accessModes:
           - ReadWriteOnce
@@ -46,7 +42,7 @@ spec:
           requests:
             storage: 50Gi
     - metadata:
-        name: wal-volume
+        name: wal
       spec:
         accessModes:
           - ReadWriteOnce
