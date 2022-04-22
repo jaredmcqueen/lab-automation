@@ -28,10 +28,11 @@ spec:
             - name: POSTGRES_DB
               value: "postgres"
             - name: PGDATA
-              value: "/var/lib/postgresql/data"
+              value: "/home/postgres/pgdata/data"
           volumeMounts:
             - name: data
-              mountPath: "/var/lib/postgresql/data"
+              mountPath: "/home/postgres/pgdata/data"
+              subPath: data
   volumeClaimTemplates:
     - metadata:
         name: data
