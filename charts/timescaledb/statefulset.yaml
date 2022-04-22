@@ -27,11 +27,15 @@ spec:
               value: "password"
             - name: POSTGRES_DB
               value: "postgres"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pg_data"
+            - name: POSTGRES_INITDB_WALDIR
+              value: "/var/lib/postgresql/data/pg_wal"
           volumeMounts:
             - name: data
-              mountPath: "/home/postgres/pgdata/data"
+              mountPath: "/var/lib/postgresql/data/pg_data"
             - name: wal
-              mountPath: "/var/lib/postgresql/wal"
+              mountPath: "/var/lib/postgresql/data/pg_wal"
   volumeClaimTemplates:
     - metadata:
         name: data
