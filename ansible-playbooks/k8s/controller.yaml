@@ -16,7 +16,7 @@
   ignore_errors: yes
   shell: |
     cp /etc/kubernetes/admin.conf /tmp/config
-    chown jared:jared /tmp/config
+    chown ubuntu:ubuntu /tmp/config
     chmod 600 /tmp/config
 - name: deploy flannel
   tags: controller

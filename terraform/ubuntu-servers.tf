@@ -73,58 +73,25 @@ provider "proxmox" {
   pm_password     = var.pve_password
 }
 
-/* user-data */
-data "template_file" "user_data" {
-  count    = var.vm_count
-  template = file("${path.module}/ubuntu.cloud_config")
-  vars = {
-    pubkey   = file("~/.ssh/id_rsa.pub")
-    hostname = "${var.project_prefix}-${count.index}"
-    password = var.pve_password
-  }
-}
-
-resource "local_file" "cloud_init_user_data_file" {
-  count    = var.vm_count
-  content  = data.template_file.user_data[count.index].rendered
-  filename = "${path.module}/files/${var.project_prefix}_user_data_${count.index}.yml"
-}
-
-resource "null_resource" "cloud_init_config_files" {
-  count = var.vm_count
-  connection {
-    type        = "ssh"
-    host        = var.pve_ip
-    private_key = file("~/.ssh/id_rsa")
-  }
-
-  provisioner "file" {
-    source      = local_file.cloud_init_user_data_file[count.index].filename
-    destination = "/var/lib/vz/snippets/${var.project_prefix}_user_data-${count.index}.yml"
-  }
-}
-
 resource "proxmox_vm_qemu" "proxmox_vm" {
-  depends_on = [
-    null_resource.cloud_init_config_files,
-  ]
-
   count       = var.vm_count
-  name        = "${var.project_prefix}-${count.index}"
+  name        = "${var.project_prefix}-${count.index + 1}"
   agent       = 1
   vmid        = "30${count.index}"
   target_node = var.pve_hostname
-  clone       = "ubuntu-cloudinit"
+  clone       = "jammy-cloudinit"
   full_clone  = true
-  os_type     = "l26"
-  # os_type     = "cloud-init"
+  # os_type     = "l26"
+  os_type     = "cloud-init"
   cores       = var.cores
   sockets     = "1"
   cpu         = "host"
   memory      = var.memory
   scsihw      = "virtio-scsi-pci"
+  bootdisk    = "scsi0"
 
   disk {
+#    slot     = 0
     type     = "virtio"
     storage  = var.diskLocation
     size     = var.diskSize
@@ -146,6 +113,4 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   # Cloud Init Settings
   ipconfig0               = "ip=${var.ip_address_prefix}${count.index + 1}/24,gw=${var.ip_address_gateway}"
   sshkeys                 = file("~/.ssh/id_rsa.pub")
-  cicustom                = "user=local:snippets/${var.project_prefix}_user_data-${count.index}.yml"
-  cloudinit_cdrom_storage = "local-lvm"
 }
