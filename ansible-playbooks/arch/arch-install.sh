@@ -8,7 +8,7 @@ fi
 echo "git config set"
 
 
-if ! [ -x "$(command -v ansible-galaxy)" ]; then
+if ! [ -x "$(command -v ansible)" ]; then
   echo "installing ansible"
   sudo pacman -S ansible
 fi
@@ -18,16 +18,8 @@ echo "ansible is installed"
 if [[ $(ansible-galaxy collection list |grep kewlfft.aur | wc -c) -eq 0 ]]; then
   echo "ansible galaxy kewlfft.aur plugin not installed"
   ansible-galaxy collection install kewlfft.aur
-  ansible-galaxy collection install community.kubernetes
 fi
 echo "ansible plugin kewlfft.aur installed"
-
-# check for community.kubernetes
-if [[ $(ansible-galaxy collection list |grep community.kubernetes | wc -c) -eq 0 ]]; then
-  echo "ansible galaxy community.kubernetes plugin not installed"
-  ansible-galaxy collection install community.kubernetes
-fi
-echo "ansible plugin community.kubernetes installed"
 
 # check for yay
 if ! [ -x "$(command -v yay)" ]; then
@@ -42,5 +34,5 @@ fi
 echo "yay is installed"
 
 # run ansible
-echo "running playbook"
-ansible-playbook $(pwd)/playbook.yaml --ask-vault-pass --ask-become-pass -v | tee logs.txt
+echo "run the following command to set up your OS:"
+echo "ansible-playbook $(pwd)/playbook.yaml --ask-vault-pass --ask-become-pass -v | tee logs.txt"
