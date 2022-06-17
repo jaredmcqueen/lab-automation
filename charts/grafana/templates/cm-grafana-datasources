@@ -1,0 +1,43 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: grafana-datasources
+data:
+  timescaledb.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: timescaleDB
+        type: postgres
+        id: 1
+        uid: timescaleDB
+        orgId: 1
+        access: proxy
+        url: "timescaledb:5432"
+        user: postgres
+        database: postgres
+        basicAuth: false
+        isDefault: false
+        readOnly: false
+        jsonData:
+          postgresVersion: 1200
+          sslmode: disable
+          timescaledb: true
+          tlsAuth: false
+          tlsAuthWithCACert: false
+          tlsConfigurationMethod: file-path
+          tlsSkipVerify: true
+        secureJsonData:
+          password: password
+  redis.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: redis
+        type: redis-datasource
+        id: 2
+        uid: redis
+        orgId: 1
+        access: proxy
+        url: "redis://redis:6379"
+        basicAuth: false
+        isDefault: false
+        readOnly: false
