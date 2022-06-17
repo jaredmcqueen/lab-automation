@@ -19,6 +19,6 @@ spec:
         image: ghcr.io/jaredmcqueen/alpaca-streaming-receiver:latest
         envFrom:
           - secretRef:
-              name: alpaca
+              name: alpaca-streaming-receiver
           - configMapRef:
               name: alpaca-streaming-receiver
