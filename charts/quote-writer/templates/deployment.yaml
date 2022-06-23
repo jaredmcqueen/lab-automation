@@ -12,8 +12,8 @@ spec:
   template:
     metadata:
       annotations:
-        prometheus.io/port: 9100
-        prometheus.io/scrape: true
+        prometheus.io/port: "9100"
+        prometheus.io/scrape: "true"
       labels:
         app: quote-writer
     spec:
