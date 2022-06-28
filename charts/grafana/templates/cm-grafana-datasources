@@ -41,3 +41,16 @@ data:
         basicAuth: false
         isDefault: false
         readOnly: false
+  prometheus.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: prometheus
+        type: prometheus
+        id: 3
+        uid: prometheus
+        orgId: 1
+        access: proxy
+        url: "http://prometheus-server.monitoring.svc.cluster.local"
+        basicAuth: false
+        isDefault: false
+        readOnly: false
