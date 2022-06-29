@@ -11,6 +11,9 @@ spec:
       app: alpaca-streaming-receiver
   template:
     metadata:
+      annotations:
+        prometheus.io/port: "9100"
+        prometheus.io/scrape: "true"
       labels:
         app: alpaca-streaming-receiver
     spec:
