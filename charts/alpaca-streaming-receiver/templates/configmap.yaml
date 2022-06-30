@@ -3,12 +3,19 @@ apiVersion: v1
 metadata:
   name: alpaca-streaming-receiver
 data:
-  BASE_URL: "https://paper-api.alpaca.markets"
-  REDIS_ENDPOINT: "redis:6379"
-  REDIS_WORKERS: "2"
-  BATCH_TIMEOUT: "100"
-  BATCH_MAX_SIZE: "1000"
-  TRADE_SYMBOLS: "*"
-  BAR_SYMBOLS: "*"
-  STATUS_SYMBOLS: "*"
-  QUOTE_SYMBOLS: "*"
+  REDIS_BATCH_MAX_SIZE=5000
+  REDIS_BATCH_TIMEOUT=250
+  REDIS_ENDPOINT="redis:6379"
+  REDIS_WORKERS=1
+
+  SYMBOLS_BARS="*"
+  SYMBOLS_QUOTES="*"
+  SYMBOLS_STATUSES="*"
+  SYMBOLS_TRADES="*"
+
+  ENABLE_BARS=true
+  ENABLE_QUOTES=true
+  ENABLE_STATUSES=true
+  ENABLE_TRADES=true
+
+  CHANNEL_QUEUE_SIZE=100000
