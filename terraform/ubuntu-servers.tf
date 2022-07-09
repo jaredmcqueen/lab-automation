@@ -3,13 +3,15 @@ variable "kubernetes_nodes" {
     hostname = string
     ip       = string
     gw       = string
+    target   = string
     vmid     = number
   }))
   default = [
     {
+      gw       = "10.0.6.1"
       hostname = "k8s-node-1"
       ip       = "10.0.6.32"
-      gw       = "10.0.6.1"
+      target   = "apollo"
       vmid     = 101
     }
   ]
@@ -17,35 +19,33 @@ variable "kubernetes_nodes" {
 
 variable "node_options" {
   type = object({
+    bridge       = string
+    cores        = number
+    diskLocation = string
+    diskSize     = string
     image        = string
     memory       = number
-    cores        = number
-    diskSize     = string
-    diskLocation = string
-    bridge       = string
   })
   default = {
+    bridge       = "vmbr1"
+    cores        = 4
+    diskLocation = "local-lvm"
+    diskSize     = "25G"
     image        = "ubuntu-jammy"
     memory       = 4096
-    cores        = 4
-    diskSize     = "25G"
-    diskLocation = "local-lvm"
-    bridge       = "vmbr1"
   }
 }
 
 variable "pve_host" {
   type = object({
-    username = string
-    password = string
     ip       = string
-    hostname = string
+    password = string
+    username = string
   })
   default = {
-    username = "root@pam"
-    password = "proxmox"
     ip       = "10.0.0.8"
-    hostname = "apollo"
+    password = "proxmox"
+    username = "root@pam"
   }
 }
 
@@ -69,7 +69,7 @@ resource "proxmox_vm_qemu" "proxmox_vm" {
   name        = var.kubernetes_nodes[count.index].hostname
   agent       = 1
   vmid        = var.kubernetes_nodes[count.index].vmid
-  target_node = var.pve_host.hostname
+  target_node = var.kubernetes_nodes[count.index].target
   clone       = var.node_options.image
   full_clone  = true
   os_type     = "cloud-init"

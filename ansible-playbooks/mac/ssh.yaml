@@ -1,0 +1,15 @@
+- name: Ensure .ssh directory exists.
+  file:
+    dest: "{{ priv_key_dest | dirname }}"
+    mode: 0700
+    state: directory
+- name: install ssh private key
+  copy:
+    src: "{{ priv_key_src }}"
+    dest: "{{ priv_key_dest }}"
+    mode: 0600
+- name: install ssh public key
+  copy:
+    src: "{{ pub_key_src }}"
+    dest: "{{ pub_key_dest }}"
+    mode: 0644

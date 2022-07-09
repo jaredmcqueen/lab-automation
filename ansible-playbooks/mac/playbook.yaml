@@ -1,0 +1,9 @@
+- hosts: localhost
+  tasks:
+    - import_tasks: ssh.yaml
+      tags: ssh
+  vars:
+    priv_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    priv_key_src: ./ssh/id_rsa
+    pub_key_dest: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+    pub_key_src: ./ssh/id_rsa.pub

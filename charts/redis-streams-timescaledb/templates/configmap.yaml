@@ -1,8 +1,0 @@
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: redis-streams-timescaledb
-data:
-  REDIS_ENDPOINT: "redis:6379"
-  REDIS_STREAM_START: "0"
-  TIMESCALEDB_CONNECTION: "postgres://postgres:password@timescaledb:5432/postgres?sslmode=disable"

@@ -67,6 +67,14 @@
   shell: |
     mkdir /etc/containerd
     containerd config default > /etc/containerd/config.toml
+- name: make config.toml work with ubuntu 22.04
+  tags: common
+  become: yes
+  lineinfile:
+    dest: /etc/containerd/config.toml
+    regexp: ".*SystemdCgroup = false"
+    line: "SystemdCgroup = true"
+    state: present
 - name: restart containerd
   tags: common
   become: yes

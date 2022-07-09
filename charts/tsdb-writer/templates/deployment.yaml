@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tsdb-writer
+  labels:
+    app: tsdb-writer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tsdb-writer
+  template:
+    metadata:
+      labels:
+        app: tsdb-writer
+    spec:
+      containers:
+      - name: tsdb-writer
+        image: ghcr.io/jaredmcqueen/tsdb-writer:latest
+        envFrom:
+          - configMapRef:
+              name: tsdb-writer

@@ -1,6 +1,6 @@
 - name: create join commmand
   tags: workers
-  delegate_to: "{{ groups['controllers'][0]}}"
+  delegate_to: "{{ groups['controller'][0]}}"
   become: yes
   shell: kubeadm token create --print-join-command
   register: kubeadm_join_cmd

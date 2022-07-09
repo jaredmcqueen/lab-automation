@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-timeseries
+  labels:
+    app: redis-timeseries
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-timeseries
+  template:
+    metadata:
+      labels:
+        app: redis-timeseries
+    spec:
+      containers:
+        - name: redis-timeseries
+          image: redis/redis-stack:latest
+          ports:
+            - containerPort: 6379
+            - containerPort: 8001
